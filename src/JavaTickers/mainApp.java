@@ -1,6 +1,9 @@
 package JavaTickers;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -12,7 +15,6 @@ public class mainApp {
     public static void main(String[] args) throws Exception {
 
         // fazer uma conexão HTTP (protocolo para acessar web) e buscar os tops 250 filmes
-
         String url = "https://raw.githubusercontent.com/lukadev08/lukadev08.github.io/main/apidata/imdbmostpopularmovies.json";
         URI endereco = URI.create(url);
         var client = HttpClient.newHttpClient();
@@ -25,19 +27,31 @@ public class mainApp {
         List<Map<String, String>> ListaDeFilmes = parser.parse(body);
 
         // exibir e manipular os dados
-
+        var gerador = new GeradorDeFigurinhas();
         for (Map<String,String> filme : ListaDeFilmes){
-            System.out.println();
-            System.out.println("\u001b[1mTítulo:\u001b[m " + filme.get("title"));
-            System.out.println("\u001b[1mURL da imagem:\u001b[m " + filme.get("image"));
-            System.out.println("\u001b[45m\u001b[1mClassificação:\u001b[m " + filme.get("imDbRating"));
-            double rating = Double.parseDouble(filme.get("imDbRating"));
-            int starNumber = (int) rating;
-            for (int n = 1; n <= starNumber; n++) {
-                    System.out.print("\uD83C\uDF1F");
+
+            String urlImagem = filme.get("image");
+            String urlImagemMaior = urlImagem.replaceFirst("(@?\\.)([0-9A-Z, ]+).jpg$","$1.jpg");
+            String titulo = filme.get("title");
+            double classificacao = Double.parseDouble(filme.get("imDbRating"));
+
+            String textoFigurinhas;
+            InputStream imagemJulia;
+            if (classificacao >= 7.0 ){
+                textoFigurinhas = "TOPZERA";
+                imagemJulia = new FileInputStream("sobreposicao/bom.png");
+            }else{
+                textoFigurinhas = "HMMM";
+                imagemJulia = new FileInputStream("sobreposicao/ruim.png");
             }
 
-                System.out.println();
+            InputStream inputStream = new URL(urlImagemMaior).openStream();
+            String nomeArquivo = titulo + ".png";
+
+            gerador.cria(inputStream, nomeArquivo, textoFigurinhas, imagemJulia);
+
+            System.out.println(titulo);
+            System.out.println();
         }
 
     }
