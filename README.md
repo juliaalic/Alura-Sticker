@@ -1,4 +1,4 @@
-# ImersaoJava-Alura
+# ImersaoJava-Aula1
 
 Projetos Java Com Intellij e VSCODE 
 
