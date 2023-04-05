@@ -1,3 +1,3 @@
-# ImersaoJava-Aula1
+# ImersaoJava-Aula2
 
-Aula 2 - GERANDO FIGURINHAS DO WHATSAPP
+`Aula 2 - gerando figurinhas do whatsapp (com Intellij)`
