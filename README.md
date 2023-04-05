@@ -4,4 +4,4 @@ Projetos Java Com Intellij e VSCODE
 
 
 
-`AULA 1 - CONSUMINDO UMA API DE FILMES COM JAVA`
+`AULA 1 - CONSUMINDO UMA API DE FILMES COM JAVA (utilizando Intellij)`
